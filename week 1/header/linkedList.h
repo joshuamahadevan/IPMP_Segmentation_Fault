@@ -194,6 +194,27 @@ class Linked_list{
 			return ind;
 		}
 		
+		int get_val( int index ){
+			struct node* temp=this->root;
+			
+			while( index-- ){
+				if(temp==NULL){
+					error("Value at given index doesnot exist");
+					return INT_MIN;
+				}
+				temp=temp->next;
+			}
+			
+			if(temp==NULL){
+				error("Value at given index doesnot exist");
+				return INT_MIN;
+			}
+			
+			return temp->data;
+			
+			
+		}
+		
 		struct node* head(){
 			return this->root;
 		}//returns root of the linked list
