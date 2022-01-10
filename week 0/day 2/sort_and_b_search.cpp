@@ -6,7 +6,6 @@ using namespace std;
 
 //sort and binary search approach
 //will sort the array using sort fn (uses quick sort) and b.s. for sum-arr[i] element for each i. if one exists return true else false
-//i am using stl functions for now because idk how to do quick sort nor binary search
 bool solve( vector<int> arr, int sum){
 	sort(arr.begin(), arr.end());
 	

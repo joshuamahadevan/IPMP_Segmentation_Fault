@@ -34,6 +34,10 @@ class Linked_list{
 			root=NULL;
 		}//constructor
 		
+		Linked_list(struct node* root){
+			this->root=root;			
+		}
+		
 		~Linked_list(){
 			struct node* current=this->root;
 			struct node* next;	
