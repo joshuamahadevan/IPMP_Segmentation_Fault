@@ -2,33 +2,24 @@
 
 using namespace std;
 
-pair< int, int > find_the_pair( int* a, int n ){
-	//first am going to seperate the +va and -ve numbers, 
-	//then do something similar to the 2 ptr approach for finding sum.
+int* make_product_array( int* a, int n ){
+	int* res=(int*)malloc( n * sizeof( int ));
 	
-	set<int> pos, neg;
-	
-	for( int i=0; i<n; i++){
-		if( a[i] > 0 ) pos.insert(a[i]);
-		else neg.insert(-a[i]);
+	res[0]=1;
+	for( int i=1; i<n; i++){
+		res[i]=res[i-1]*a[i-1];
 	}
+	//now res has all prefix sums.
 	
-	set<int> :: iterator p_it=pos.begin(), n_it=neg.begin();
-	int p=0,n_=0;
-	int min_mod=INT_MAX;
-	while ( p_it != pos.end() && n_it !=neg.end() ){
-		if( abs(*(p_it)-*(n_it)) < min_mod ) {
-			p=*p_it;
-			n_=*n_it;
-			min_mod=abs(*(p_it)-*(n_it));
-		}
-		
-		if( *(p_it) - *(n_it) > 0 ) n_it++;
-		else p_it++;
+	// 1 2 3 4 5  6   7
+	// 1 1 2 6 24 120 720
+	
+	int t=1;
+	for( int i=n-2; i>=0; i-- ){
+		t*=a[i+1];
+		res[i]*=t;
 	}
-	
-	return make_pair(p,-n_);
-	
+	return res;
 }
 
 int main(){
@@ -43,10 +34,13 @@ int main(){
 			cin>>arr[i];
 		}
 
-		pair<int,int> res=find_the_pair( arr, n );
+		int* res = make_product_array( arr, n );
 		
-		cout<<"The pair of numbers which have sum closest to 0 is: "
-			<<res.first<<" "<<res.second<<"\n\n";
- 		
+		cout<<"The product array is: ";
+		for( int i=0; i<n; i++){
+			cout<<res[i]<<" ";
+		}
+		cout<<endl;
+ 		free(res);	
 	}
 }

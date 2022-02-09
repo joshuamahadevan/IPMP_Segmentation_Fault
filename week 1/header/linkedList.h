@@ -11,16 +11,18 @@ struct node{
 	struct node* next;
 }; //node of a linked list
 
+struct node* create_node( int data ){
+	struct node* newnode= ( struct node* ) malloc ( sizeof( struct node ));
+	newnode->data=data;
+	newnode->next=NULL;
+			
+	return newnode;
+}
+
 class Linked_list{
 	private: 
 		struct node* root;
-		struct node* create_node( int data ){
-			struct node* newnode= ( struct node* ) malloc ( sizeof( struct node ));
-			newnode->data=data;
-			newnode->next=NULL;
-			
-			return newnode;
-		}
+
 		void error( string error){
 			cout<<endl
 				<<"------------------------------------------"<<endl
@@ -48,6 +50,24 @@ class Linked_list{
 				current=next;
 			}
 		}//destructor
+		
+		void initialise(){
+			this->root=NULL;
+			node* temp;
+			while( 1 ){
+				int data;
+				cin>>data;
+				if( data == -1 ) return;
+				node* newnode = create_node(data);
+				if(temp==NULL){
+					this->root=newnode;
+					temp=newnode;
+				}else{
+					temp->next=newnode;
+					temp=newnode;
+				}
+			}
+		}
 		
 		void append( int data ){
 			if(root==NULL){
