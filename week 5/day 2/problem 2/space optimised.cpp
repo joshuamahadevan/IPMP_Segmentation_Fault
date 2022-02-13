@@ -5,14 +5,19 @@ using namespace std;
 int rain_water( int*a, int n){
 	int left_max=0, right_max=0;
 	int lo=0, hi=n-1;
+	int res=0;
 	
 	while(lo<hi){
 		if(a[lo]<a[hi]){
-			
+			if(a[lo]>left_max) left_max=a[lo];
+			res+=left_max-a[lo++];
 		}else{
-			
+			if(a[hi]>right_max) right_max=a[hi];
+			res+=right_max-a[hi--];
 		}
 	}
+	
+	return res;
 }
 
 int main(){
